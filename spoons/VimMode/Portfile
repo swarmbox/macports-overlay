@@ -1,0 +1,47 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        dbalatero VimMode.spoon master
+categories          spoons
+platforms           darwin
+maintainers         openmaintainer
+description         Vim motions in macOS
+long_description    This library will add Vim motions and operators to all \
+                    your input fields on macOS.
+
+checksums           rmd160  53514f65b32d9f498ec0e8a6577724c5514e716e \
+                    sha256  c13c95c1c4bca7937aedea6c90d95642865c90ebdfddf6377cd7a83db9007d17 \
+                    size    8333249
+
+fetch.type          git
+
+use_configure       no
+
+build {}
+
+destroot {
+    file mkdir -p ${destroot}/${prefix}/share/Hammerspoon/Spoons
+    file copy ${workpath}/VimMode.spoon-master ${destroot}/${prefix}/share/Hammerspoon/Spoons/VimMode.spoon
+}
+
+notes "
+Run this in your Terminal:
+
+  mkdir -p ~/.hammerspoon/Spoons
+  ln -s ${prefix}/share/hammerspoon/Spoons/VimMode.spoon ~/.hammerspoon/Spoons
+
+Modify your ~/.hammerspoon/init.lua file to contain the following:
+
+  v = hs.loadSpoon('VimMode')
+  v:disableForApp('Terminal')
+  -- Basic key binding to ctrl+;
+  -- You can choose any key binding you want here, see:
+  --   https://www.hammerspoon.org/docs/hs.hotkey.html#bind
+  hs.hotkey.bind({'ctrl'}, ';', function()
+    v:enter()
+  end)
+"
+
+livecheck           none
