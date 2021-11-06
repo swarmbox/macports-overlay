@@ -1,0 +1,10 @@
+--- pwcheck/pwcheck_getpwnam.c.orig	2021-11-01 08:56:36.000000000 -0700
++++ pwcheck/pwcheck_getpwnam.c	2021-11-01 08:55:55.000000000 -0700
+@@ -42,6 +42,7 @@
+  */
+ 
+ #include <pwd.h>
++#include <string.h>
+ 
+ extern char *crypt();
+ 
